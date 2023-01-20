@@ -1,0 +1,1 @@
+SELECT id,studyYear,name FROM student WHERE id = :#${header.id};

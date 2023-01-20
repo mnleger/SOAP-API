@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is identical to the log4j2-spring.xml file. However, it is good practice to configure seperate loggers depending on the environment in which the project is run. Thus, this configuration is for when the project is in the
+development environment-->
+<Configuration status="WARN">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        <Property name="LOG_PATH">${bundle:application-dev:project.service.log.path}</Property>
+        <Property name="LOG_LEVEL">${bundle:application-dev:project.service.log.level}</Property>
+
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%level %d{HH:mm:ss.SSS} - %msg%n" />
+        </Console>
+
+
+        <RollingFile name="InfoLog" fileName="${LOG_PATH}"
+                     filePattern="${LOG_PATH}-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter maxLevel="INFO"   minLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="utf-8">
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+
+        <RollingFile name="WarnLog" fileName="${LOG_PATH}-WARN"
+                     filePattern="${LOG_PATH}-%d{yyyy-MM-dd}-%i.log-WARN">
+            <LevelRangeFilter maxLevel="WARN"   minLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="utf-8">
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+
+        <RollingFile name="ErrorLog" fileName="${LOG_PATH}-ERROR"
+                     filePattern="${LOG_PATH}-%d{yyyy-MM-dd}-%i.log-ERROR">
+            <LevelRangeFilter maxLevel="ERROR"   minLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="utf-8">
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+        <RollingFile name="DebugLog" fileName="${LOG_PATH}-DEBUG"
+                     filePattern="${LOG_PATH}-%d{yyyy-MM-dd}-%i.log-DEBUG">
+            <LevelRangeFilter maxLevel="DEBUG"   minLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="utf-8">
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+        <RollingFile name="TraceLog" fileName="${LOG_PATH}-TRACE"
+                     filePattern="${LOG_PATH}-%d{yyyy-MM-dd}-%i.log-TRACE">
+            <LevelRangeFilter maxLevel="TRACE"   minLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="utf-8">
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="computer.networks.logger" level="${LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="InfoLog" />
+            <AppenderRef ref="WarnLog" />
+            <AppenderRef ref="ErrorLog"/>
+            <AppenderRef ref="DebugLog"/>
+            <AppenderRef ref="TraceLog"/>
+        </Logger>
+
+        <Root level="${LOG_LEVEL}">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="InfoLog"/>
+            <AppenderRef ref="WarnLog"/>
+            <AppenderRef ref="ErrorLog"/>
+            <AppenderRef ref="DebugLog"/>
+            <AppenderRef ref="TraceLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

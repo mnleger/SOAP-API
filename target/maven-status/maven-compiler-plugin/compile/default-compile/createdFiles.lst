@@ -1,0 +1,8 @@
+org\example\project\InboundRoutes.class
+org\example\project\SingleStudentProcessor.class
+org\example\project\AllStudentProcessor.class
+org\example\project\Application.class
+org\example\project\CxfEndpointConfig$1.class
+org\example\project\ApplicationConfiguration$1.class
+org\example\project\ApplicationConfiguration.class
+org\example\project\CxfEndpointConfig.class

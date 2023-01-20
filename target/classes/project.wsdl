@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file defines the operations and XML payloads that the api can expect-->
+
+<!--Import namespaces to be later used in the file-->
+<wsdl:definitions name="ProjectService"
+                  targetNamespace="http://www.examples.com/ProjectService"
+                  xmlns:tns="http://www.examples.com/ProjectService"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:student="http://in28minutes.com/student">
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://in28minutes.com/student"
+                        schemaLocation="student.xsd">
+            </xsd:import>
+        </xsd:schema>
+    </wsdl:types>
+
+
+    <!--These message tags define the contents of requests coming into the api as well as the contents of responses going out of the api-->
+    <wsdl:message name="GetStudentRequest">
+        <wsdl:part name="id" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetStudentResponse">
+        <wsdl:part name="student" type="student:StudentDetails"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetAllStudentRequest">
+    </wsdl:message>
+
+    <wsdl:message name="GetAllStudentResponse">
+        <wsdl:part name="students" type="student:AllStudentDetails"/>
+    </wsdl:message>
+
+    <wsdl:message name="PostStudentRequest">
+        <wsdl:part name="student" type="student:StudentDetails"/>
+    </wsdl:message>
+
+    <wsdl:message name="PostStudentResponse">
+        <wsdl:part name="status" type="student:StatusDetails"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteStudentRequest">
+        <wsdl:part name="id" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteStudentResponse">
+        <wsdl:part name="status" type="student:StatusDetails"/>
+    </wsdl:message>
+
+    <!--This node describes which operations can be conducted from the SOAP client side (get, post, delete, etc)-->
+    <wsdl:portType name="Student_PortType">
+        <wsdl:operation name="getStudent">
+            <wsdl:input message="tns:GetStudentRequest"/>
+            <wsdl:output message="tns:GetStudentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAllStudents">
+            <wsdl:input message="tns:GetAllStudentRequest"/>
+            <wsdl:output message="tns:GetAllStudentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="postStudent">
+            <wsdl:input message="tns:PostStudentRequest"/>
+            <wsdl:output message="tns:PostStudentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteStudent">
+            <wsdl:input message="tns:DeleteStudentRequest"/>
+            <wsdl:output message="tns:DeleteStudentResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="Student_Binding" type="tns:Student_PortType">
+        <soap:binding style="rpc"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getStudent">
+            <soap:operation soapActionRequired="true" soapAction="getStudent"/>
+            <wsdl:input>
+                <soap:body
+                        use="literal"/>
+            </wsdl:input>
+
+            <wsdl:output>
+                <soap:body
+                        use="literal" parts="part"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getAllStudents">
+            <soap:operation soapActionRequired="true" soapAction="getAllStudents" />
+            <wsdl:input>
+                <soap:body
+                        use="literal"/>
+            </wsdl:input>
+
+            <wsdl:output>
+                <soap:body
+                        use="literal" parts="part"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="postStudent">
+            <soap:operation soapActionRequired="true" soapAction="postStudent" />
+            <wsdl:input>
+                <soap:body
+                        use="literal"/>
+            </wsdl:input>
+
+            <wsdl:output>
+                <soap:body
+                        use="literal" parts="part"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="deleteStudent">
+            <soap:operation soapActionRequired="true" soapAction="deleteStudent" />
+            <wsdl:input>
+                <soap:body
+                        use="literal"/>
+            </wsdl:input>
+
+            <wsdl:output>
+                <soap:body
+                        use="literal" parts="part"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!--Initializes the URL for payloads to come into the api-->
+    <wsdl:service name="Student_Service">
+        <wsdl:documentation>WSDL File for Final Project</wsdl:documentation>
+        <wsdl:port binding="tns:Student_Binding" name="Student_Port">
+            <soap:address
+                    location="http://localhost:7777/project/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

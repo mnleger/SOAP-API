@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file describes the schema of the incoming SOAP payloads, that being, the format of the incoming XML-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://in28minutes.com/student"
+           xmlns:tns="http://in28minutes.com/student"
+           elementFormDefault="qualified">
+
+    <xs:element name="GetStudentDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="GetStudentDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="StudentDetails" type="tns:StudentDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllStudentDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="GetAllStudentDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="AllStudentDetails" type="tns:AllStudentDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PostStudentDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="StudentDetails" type="tns:StudentDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PostStudentDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="StatusDetails" type="tns:StatusDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteStudentDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteStudentDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="StatusDetails" type="tns:StatusDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--Describes the format of a Status response payload, including an error code and message-->
+    <xs:complexType name="StatusDetails">
+        <xs:sequence>
+            <xs:element name="code" type="xs:int"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Describes the contents of a Student XML object, including student id, year of study, and name-->
+    <xs:complexType name="StudentDetails">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="year" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AllStudentDetails">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="students" type="tns:StudentDetails"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>

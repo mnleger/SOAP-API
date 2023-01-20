@@ -1,0 +1,1 @@
+INSERT INTO student(id,studyYear,name) VALUES(:#${header.id}, :#${header.studyYear}, :#${header.name});
